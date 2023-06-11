@@ -12,11 +12,12 @@ import           Network.HTTP.Client
 
 main :: IO ()
 main = do
-    let url = "http://localhost:9600/rest/api/2/issue/AAA-2"
+    let jiraUrl = "http://localhost:9600"
+    let restUrl = "/rest/api/2/issue/"
 
     manager <- newManager defaultManagerSettings
 
-    let reqIni = parseRequest_ url
+    let reqIni = parseRequest_ (jiraUrl ++ restUrl ++ "AAA-2")
     let req = applyBasicAuth (S8.pack "admin") (S8.pack "admin") reqIni
 
     response <- httpLbs req manager    
